@@ -22,6 +22,7 @@ type RoomRecord struct {
 	LeaseExpiresAtUnix *int64  `thrift:"lease_expires_at_unix,13,optional" frugal:"13,optional,i64" json:"lease_expires_at_unix,omitempty"`
 	CurrentMatchId     *string `thrift:"current_match_id,14,optional" frugal:"14,optional,string" json:"current_match_id,omitempty"`
 	NextRoundNo        int32   `thrift:"next_round_no,15,required" frugal:"15,required,i32" json:"next_round_no"`
+	Visibility         *string `thrift:"visibility,16,optional" frugal:"16,optional,string" json:"visibility,omitempty"`
 }
 
 func NewRoomRecord() *RoomRecord {
@@ -100,6 +101,15 @@ func (p *RoomRecord) GetCurrentMatchId() (v string) {
 func (p *RoomRecord) GetNextRoundNo() (v int32) {
 	return p.NextRoundNo
 }
+
+var RoomRecord_Visibility_DEFAULT string
+
+func (p *RoomRecord) GetVisibility() (v string) {
+	if !p.IsSetVisibility() {
+		return RoomRecord_Visibility_DEFAULT
+	}
+	return *p.Visibility
+}
 func (p *RoomRecord) SetRoomId(val string) {
 	p.RoomId = val
 }
@@ -145,6 +155,9 @@ func (p *RoomRecord) SetCurrentMatchId(val *string) {
 func (p *RoomRecord) SetNextRoundNo(val int32) {
 	p.NextRoundNo = val
 }
+func (p *RoomRecord) SetVisibility(val *string) {
+	p.Visibility = val
+}
 
 func (p *RoomRecord) IsSetLeaseExpiresAtUnix() bool {
 	return p.LeaseExpiresAtUnix != nil
@@ -152,6 +165,10 @@ func (p *RoomRecord) IsSetLeaseExpiresAtUnix() bool {
 
 func (p *RoomRecord) IsSetCurrentMatchId() bool {
 	return p.CurrentMatchId != nil
+}
+
+func (p *RoomRecord) IsSetVisibility() bool {
+	return p.Visibility != nil
 }
 
 func (p *RoomRecord) String() string {
@@ -177,6 +194,7 @@ var fieldIDToName_RoomRecord = map[int16]string{
 	13: "lease_expires_at_unix",
 	14: "current_match_id",
 	15: "next_round_no",
+	16: "visibility",
 }
 
 type CreateRoomReq struct {
@@ -185,6 +203,7 @@ type CreateRoomReq struct {
 	OwnerPlayerId string  `thrift:"owner_player_id,3,required" frugal:"3,required,string" json:"owner_player_id"`
 	MaxPlayers    *int32  `thrift:"max_players,4,optional" frugal:"4,optional,i32" json:"max_players,omitempty"`
 	RequestId     *string `thrift:"request_id,5,optional" frugal:"5,optional,string" json:"request_id,omitempty"`
+	Visibility    *string `thrift:"visibility,6,optional" frugal:"6,optional,string" json:"visibility,omitempty"`
 }
 
 func NewCreateRoomReq() *CreateRoomReq {
@@ -223,6 +242,15 @@ func (p *CreateRoomReq) GetRequestId() (v string) {
 	}
 	return *p.RequestId
 }
+
+var CreateRoomReq_Visibility_DEFAULT string
+
+func (p *CreateRoomReq) GetVisibility() (v string) {
+	if !p.IsSetVisibility() {
+		return CreateRoomReq_Visibility_DEFAULT
+	}
+	return *p.Visibility
+}
 func (p *CreateRoomReq) SetGameType(val string) {
 	p.GameType = val
 }
@@ -238,6 +266,9 @@ func (p *CreateRoomReq) SetMaxPlayers(val *int32) {
 func (p *CreateRoomReq) SetRequestId(val *string) {
 	p.RequestId = val
 }
+func (p *CreateRoomReq) SetVisibility(val *string) {
+	p.Visibility = val
+}
 
 func (p *CreateRoomReq) IsSetMaxPlayers() bool {
 	return p.MaxPlayers != nil
@@ -245,6 +276,10 @@ func (p *CreateRoomReq) IsSetMaxPlayers() bool {
 
 func (p *CreateRoomReq) IsSetRequestId() bool {
 	return p.RequestId != nil
+}
+
+func (p *CreateRoomReq) IsSetVisibility() bool {
+	return p.Visibility != nil
 }
 
 func (p *CreateRoomReq) String() string {
@@ -260,6 +295,7 @@ var fieldIDToName_CreateRoomReq = map[int16]string{
 	3: "owner_player_id",
 	4: "max_players",
 	5: "request_id",
+	6: "visibility",
 }
 
 type CreateRoomResp struct {
